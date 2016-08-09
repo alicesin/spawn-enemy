@@ -3,17 +3,21 @@ using System.Collections;
 
 public class EnemyMove : MonoBehaviour {
 
-	public Transform track;
+	private Transform track;
+	[Tooltip("Game Object that the enemies move toward")]
 	public GameObject track_obj;
-	private float moveSpeed = 3f;
 
-	public float speed;
+	[Tooltip("Moving speed of enemy")]
+	public float moveSpeed = 3f;
 
-	public Rigidbody rb;
+	[Tooltip("Height that the enemy jump")]
+	public int jumpHeight = 2;
+
+	//public Rigidbody rb;
 
 	// Use this for initialization
 	void Start () {
-		rb = GetComponent<Rigidbody> ();
+		//rb = GetComponent<Rigidbody> ();
 		track_obj = GameObject.Find("Track");
 		track = track_obj.transform;
 	}
@@ -31,10 +35,9 @@ public class EnemyMove : MonoBehaviour {
 			//transform.Translate(Vector3.up * 2 * Time.deltaTime, Space.World);
 
 			float move = moveSpeed * Time.deltaTime;
-			transform.Translate(Vector3.up * 2 * Time.deltaTime, Space.World);
+			transform.Translate(Vector3.up * jumpHeight * Time.deltaTime, Space.World);
 			transform.position = Vector3.MoveTowards(transform.position, track.position, move);
 
-			rb.AddForce (movement * speed);
 		}
 	}
 }
